@@ -51,8 +51,6 @@ public class JournalEntryController {
     }
 
 
-
-
     @PostMapping
     public ResponseEntity<JournalEntry> createEntry(@RequestBody JournalEntry journalEntry){
         try{
@@ -76,10 +74,6 @@ public class JournalEntryController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
-
-
-
-
 
 
     @DeleteMapping("/id/{myId}")

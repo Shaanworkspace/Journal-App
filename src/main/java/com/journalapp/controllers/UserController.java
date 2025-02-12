@@ -18,8 +18,9 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping
-    public ResponseEntity<UsersEntry> createUsers(@RequestBody UsersEntry newEntry){
+
+    @PostMapping("/register")
+    public ResponseEntity<UsersEntry> registerUser(@RequestBody UsersEntry newEntry){
         try{
             userService.saveEntry(newEntry);
             return new ResponseEntity<>(newEntry,HttpStatus.CREATED);
@@ -27,6 +28,18 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
+
+    @PostMapping("/login")
+    public ResponseEntity<String> loginUser(@RequestBody UsersEntry newEntry){
+        try{
+            String verify = userService.verify(newEntry);
+            System.out.println(verify);
+            return new ResponseEntity<>(verify,HttpStatus.FOUND);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
 
     @GetMapping
     public ResponseEntity<List<UsersEntry>> getAllUsers(){
